@@ -1874,6 +1874,11 @@ def process_callback_query(cb: Dict[str, Any]) -> None:
 
 # ==================== RENDER 24/7 HTTP HEALTH SERVER ====================
 class HealthCheckHandler(BaseHTTPRequestHandler):
+    def do_HEAD(self) -> None:
+        self.send_response(200)
+        self.send_header("Content-type", "application/json; charset=utf-8")
+        self.end_headers()
+
     def do_GET(self) -> None:
         stats = get_stats()
         b_name = get_setting("bot_name", DEFAULT_BOT_NAME)
