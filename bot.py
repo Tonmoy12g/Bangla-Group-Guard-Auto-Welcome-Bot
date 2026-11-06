@@ -33,8 +33,13 @@ logging.basicConfig(
 logger = logging.getLogger("BanglaGroupGuard")
 
 # ==================== RENDER ENVIRONMENT CONFIGURATION ====================
-BOT_TOKEN = os.getenv("BOT_TOKEN", "").strip()
-RAW_ADMIN_IDS = os.getenv("ADMIN_ID", os.getenv("ADMIN_IDS", "")).strip()
+# চাইলে এখানে টোকেন/আইডি লিখতে পারো, না লিখলে Environment থেকে নিবে।
+# Environment-এ দিলে সেটাই আগে চলবে। কোডে টোকেন লিখলে ফাইল কাউকে দিলে টোকেন ফাঁস হবে, তাই শেয়ার করার আগে মুছে দিও।
+BOT_TOKEN_IN_CODE = ""
+ADMIN_ID_IN_CODE = ""
+
+BOT_TOKEN = os.getenv("BOT_TOKEN", "").strip() or BOT_TOKEN_IN_CODE.strip()
+RAW_ADMIN_IDS = os.getenv("ADMIN_ID", os.getenv("ADMIN_IDS", "")).strip() or ADMIN_ID_IN_CODE.strip()
 ADMIN_IDS = set()
 for _part in RAW_ADMIN_IDS.split(","):
     _part = _part.strip()
