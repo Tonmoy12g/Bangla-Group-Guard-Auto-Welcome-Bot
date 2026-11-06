@@ -1899,6 +1899,9 @@ class HealthCheckHandler(BaseHTTPRequestHandler):
 
 
 def run_http_server() -> None:
+    if "PORT" not in os.environ:
+        logger.info("Health server skipped (no PORT) - running as Worker, bot still works.")
+        return
     try:
         server = HTTPServer(("0.0.0.0", PORT), HealthCheckHandler)
         logger.info(f"Render Health Server listening on port {PORT}")
